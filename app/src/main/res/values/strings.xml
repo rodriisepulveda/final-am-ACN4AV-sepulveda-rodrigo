@@ -10,5 +10,6 @@
     <string name="toast_product_add_error">Ingresa un nombre de producto</string>
     <string name="toast_functionality_development">Funcionalidad en Desarrollo</string>
     <string name="hint_product_name">Nombre del Producto</string>
+    <string name="logo_description">Logo de la empresa</string>
 
 </resources>
