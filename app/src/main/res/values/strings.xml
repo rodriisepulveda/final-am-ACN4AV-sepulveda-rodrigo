@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">parcial-1-am-acn4av-rodrigo-sepulveda</string>
+    <string name="welcome_message">Bienvenido Pepito</string>
+    <string name="button_show_products">Gestion Productos</string>
+    <string name="button_add_product">Agregar Producto</string>
+    <string name="button_delete_product">Eliminar Producto</string>
+    <string name="edit_text_hint">Nombre del Producto</string>
+    <string name="button_back">Volver</string>
+    <string name="toast_product_added">Producto agregado</string>
+    <string name="toast_product_add_error">Ingresa un nombre de producto</string>
+    <string name="toast_functionality_development">Funcionalidad en Desarrollo</string>
+    <string name="hint_product_name">Nombre del Producto</string>
+
 </resources>
