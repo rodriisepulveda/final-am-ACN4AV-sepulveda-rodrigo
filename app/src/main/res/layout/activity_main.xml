@@ -27,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenido Pepito"
-        android:textSize="24sp"
         android:textColor="@color/textColor"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -53,8 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Gestion Productos"
             android:layout_margin="5dp"
+            android:text="Gestion Productos"
+            android:textColorLink="#FF0000"
+            app:rippleColor="#0027FF"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -62,8 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Funcion 2"
             android:layout_margin="5dp"
+            android:text="Funcion 2"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -71,8 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Funcion 3"
             android:layout_margin="5dp"
+            android:text="Funcion 3"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 
