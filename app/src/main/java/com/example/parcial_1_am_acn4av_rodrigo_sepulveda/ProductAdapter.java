@@ -1,5 +1,6 @@
 package com.example.parcial_1_am_acn4av_rodrigo_sepulveda;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private final List<Product> productList;
     private final OnProductClickListener onProductClickListener;
+    private final OnProductEditListener onProductEditListener;
 
-    public ProductAdapter(List<Product> productList, OnProductClickListener listener) {
+    public ProductAdapter(List<Product> productList, OnProductClickListener deleteListener, OnProductEditListener editListener) {
         this.productList = productList;
-        this.onProductClickListener = listener;
+        this.onProductClickListener = deleteListener;
+        this.onProductEditListener = editListener;
     }
 
     @NonNull
@@ -27,6 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
@@ -34,13 +38,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         // Mostrar el nombre del producto
         holder.textViewProductName.setText(product.getName());
 
+        // Mostrar la categoría del producto de forma dinámica
+        String categoryText = holder.itemView.getContext().getString(R.string.category_label) + " " + product.getCategory();
+        holder.textViewProductCategory.setText(categoryText);
+
         // Configurar el botón de eliminar
         holder.buttonDeleteProduct.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onProductClick(position);
             }
         });
+
+        // Configurar el botón de editar
+        holder.buttonEditProduct.setOnClickListener(v -> {
+            if (onProductEditListener != null) {
+                onProductEditListener.onProductEdit(position);
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -49,17 +65,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         final TextView textViewProductName;
+        final TextView textViewProductCategory;
         final ImageButton buttonDeleteProduct;
+        final ImageButton buttonEditProduct;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
+            textViewProductCategory = itemView.findViewById(R.id.textViewProductCategory);
             buttonDeleteProduct = itemView.findViewById(R.id.buttonDeleteProduct);
+            buttonEditProduct = itemView.findViewById(R.id.buttonEditProduct);
         }
     }
 
     // Interfaz para manejar eventos de clic
     public interface OnProductClickListener {
         void onProductClick(int position);
+    }
+
+    // Interfaz para manejar eventos de edición
+    public interface OnProductEditListener {
+        void onProductEdit(int position);
     }
 }

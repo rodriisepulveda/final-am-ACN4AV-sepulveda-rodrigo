@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application) // Tu plugin actual (de tu configuración)
-    id 'com.google.gms.google-services'     // Plugin de Google Services
+    alias(libs.plugins.android.application)
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -10,6 +10,7 @@ android {
     defaultConfig {
         applicationId "com.example.parcial_1_am_acn4av_rodrigo_sepulveda"
         minSdk 24
+        //noinspection OldTargetApi
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -41,10 +42,10 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     // Firebase BoM (Bill of Materials)
-    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+    implementation platform(libs.firebase.bom)
 
     // Firebase Analytics
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation libs.firebase.analytics
 
     // Puedes agregar otras dependencias de Firebase aquí según necesites
     // Ejemplo: Firebase Realtime Database

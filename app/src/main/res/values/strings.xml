@@ -4,14 +4,27 @@
     <string name="button_show_products">Gestion Productos</string>
     <string name="button_add_product">Agregar Producto</string>
     <string name="button_delete_product">Eliminar Producto</string>
+    <string name="button_edit_product">Editar Producto</string>
     <string name="edit_text_hint">Nombre del Producto</string>
     <string name="button_back">Volver</string>
     <string name="toast_product_added">Producto agregado</string>
     <string name="toast_product_add_error">Ingresa un nombre de producto</string>
+    <string name="toast_product_edited">Producto actualizado correctamente</string>
+    <string name="toast_product_edit_error">Error al actualizar producto</string>
     <string name="toast_functionality_development">Funcionalidad en Desarrollo</string>
     <string name="hint_product_name">Nombre del Producto</string>
+    <string name="hint_product_category">Categoría</string>
+    <string name="hint_edit_product_name">Editar nombre del Producto</string>
+    <string name="hint_edit_product_category">Editar categoría</string>
     <string name="logo_description">Logo de la empresa</string>
     <string name="delete_product">Eliminar producto</string>
-    <string name="hint_search_product">Buscar producto</string>
+    <string name="edit_product">Editar producto</string>
+    <string name="category_label">Categoría:</string>
+    <string name="hint_search_name">Buscar por nombre</string>
+    <string name="hint_search_category">Buscar por categoría</string>
     <string name="toast_no_products_available">No hay productos disponibles</string>
+    <string name="dialog_edit_product_title">Editar Producto</string>
+    <string name="dialog_edit_product_save">Guardar</string>
+    <string name="dialog_edit_product_cancel">Cancelar</string>
+
 </resources>
