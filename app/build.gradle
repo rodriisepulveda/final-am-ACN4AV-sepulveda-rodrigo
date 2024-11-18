@@ -1,5 +1,6 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.application) // Tu plugin actual (de tu configuración)
+    id 'com.google.gms.google-services'     // Plugin de Google Services
 }
 
 android {
@@ -29,12 +30,23 @@ android {
 }
 
 dependencies {
-
+    // Dependencias del proyecto
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation libs.firebase.database
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    // Firebase BoM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:33.6.0')
+
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Puedes agregar otras dependencias de Firebase aquí según necesites
+    // Ejemplo: Firebase Realtime Database
+    // implementation 'com.google.firebase:firebase-database'
 }

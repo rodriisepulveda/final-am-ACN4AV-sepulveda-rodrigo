@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import android.content.Intent;
+
 
 public class ProductListActivity extends AppCompatActivity {
     private List<Product> productList;

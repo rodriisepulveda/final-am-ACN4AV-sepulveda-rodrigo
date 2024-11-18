@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "65035734957",
+    "project_id": "tp-aplicacionesmoviles",
+    "storage_bucket": "tp-aplicacionesmoviles.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65035734957:android:25c2d09d0a70660d325b24",
+        "android_client_info": {
+          "package_name": "com.example.parcial_1_am_acn4av_rodrigo_sepulveda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ8kpFgkZFGs4FDwMDPx6fifXjJTuSI5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
