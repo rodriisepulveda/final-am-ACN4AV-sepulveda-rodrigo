@@ -11,5 +11,7 @@
     <string name="toast_functionality_development">Funcionalidad en Desarrollo</string>
     <string name="hint_product_name">Nombre del Producto</string>
     <string name="logo_description">Logo de la empresa</string>
-
+    <string name="delete_product">Eliminar producto</string>
+    <string name="hint_search_product">Buscar producto</string>
+    <string name="toast_no_products_available">No hay productos disponibles</string>
 </resources>
