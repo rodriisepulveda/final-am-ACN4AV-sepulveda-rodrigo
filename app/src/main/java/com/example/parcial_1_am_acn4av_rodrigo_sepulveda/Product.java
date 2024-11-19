@@ -5,16 +5,18 @@ public class Product {
     private String name;
     private double price;
     private String category; // Nueva categoría
+    private String imageUrl; // URL de la imagen del producto
 
     // Constructor vacío requerido por Firebase
     public Product() {}
 
     // Constructor completo
-    public Product(String id, String name, double price, String category) {
+    public Product(String id, String name, double price, String category, String imageUrl) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
+        this.imageUrl = imageUrl;
     }
 
     // Getters y setters
@@ -48,5 +50,13 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

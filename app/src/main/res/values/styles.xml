@@ -1,20 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="buttonStyle">@style/CustomButton</item>
+        <item name="cardViewStyle">@style/CustomCardView</item>
+    </style>
 
-    <resources>
-        <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-            <item name="colorPrimary">@color/primaryColor</item>
-            <item name="colorPrimaryVariant">@color/primaryVariant</item>
-            <item name="colorSecondary">@color/secondaryColor</item>
-            <item name="android:windowBackground">@color/backgroundColor</item>
-            <item name="android:textColor">@color/textColor</item>
-            <item name="buttonStyle">@style/CustomButton</item>
-        </style>
+    <style name="CustomButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/primaryColor</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:padding">12dp</item>
+    </style>
 
-        <style name="CustomButton" parent="Widget.MaterialComponents.Button">
-            <item name="android:background">@drawable/rounded_button</item>
-            <item name="android:textColor">@color/white</item>
-            <item name="android:padding">12dp</item>
-        </style>
-    </resources>
+    <style name="CustomCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
 
-
+    <style name="CustomTextInputEditText" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="android:textColorHint">@color/textColor</item>
+    </style>
+</resources>

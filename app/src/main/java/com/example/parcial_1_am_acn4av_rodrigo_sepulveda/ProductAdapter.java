@@ -1,6 +1,6 @@
 package com.example.parcial_1_am_acn4av_rodrigo_sepulveda;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -30,7 +31,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
@@ -38,25 +38,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         // Mostrar el nombre del producto
         holder.textViewProductName.setText(product.getName());
 
-        // Mostrar la categoría del producto de forma dinámica
-        String categoryText = holder.itemView.getContext().getString(R.string.category_label) + " " + product.getCategory();
-        holder.textViewProductCategory.setText(categoryText);
+        // Mostrar la categoría del producto
+        holder.textViewProductCategory.setText(
+                holder.itemView.getContext().getString(R.string.category_label, product.getCategory())
+        );
 
-        // Configurar el botón de eliminar
+        // Configurar clic para navegar a ProductDetailActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ProductDetailActivity.class);
+            intent.putExtra("productName", product.getName());
+            intent.putExtra("productCategory", product.getCategory());
+            intent.putExtra("productPrice", product.getPrice());
+            intent.putExtra("productImageUrl", product.getImageUrl());
+            v.getContext().startActivity(intent);
+        });
+
+        // Configurar botón de eliminar producto
         holder.buttonDeleteProduct.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onProductClick(position);
             }
         });
 
-        // Configurar el botón de editar
+        // Configurar botón de editar producto
         holder.buttonEditProduct.setOnClickListener(v -> {
             if (onProductEditListener != null) {
                 onProductEditListener.onProductEdit(position);
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

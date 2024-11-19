@@ -13,20 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Parcial1amacn4avrodrigosepulveda"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ProductDetailActivity"
+            android:exported="false" />
         <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Actividad de gestión de productos -->
+        </activity> <!-- Actividad de gestión de productos -->
         <activity
             android:name=".ProductListActivity"
             android:exported="true" />
     </application>
+
 </manifest>

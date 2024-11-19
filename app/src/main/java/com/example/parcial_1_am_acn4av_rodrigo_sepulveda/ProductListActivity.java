@@ -1,10 +1,13 @@
 package com.example.parcial_1_am_acn4av_rodrigo_sepulveda;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,7 +30,6 @@ public class ProductListActivity extends AppCompatActivity {
     private List<Product> productList;
     private List<Product> filteredProductList;
     private ProductAdapter productAdapter;
-    private EditText editTextProductName, editTextProductCategory;
     private EditText editTextSearchName, editTextSearchCategory;
     private DatabaseReference database;
 
@@ -37,13 +39,19 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_list);
 
         // Inicializar vistas
-        editTextProductName = findViewById(R.id.editTextProductName);
-        editTextProductCategory = findViewById(R.id.editTextProductCategory);
         editTextSearchName = findViewById(R.id.editTextSearchName);
         editTextSearchCategory = findViewById(R.id.editTextSearchCategory);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Button buttonBackToMain = findViewById(R.id.buttonBackToMain);
+        buttonBackToMain.setOnClickListener(v -> {
+            // Regresar al MainActivity
+            Intent intent = new Intent(ProductListActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Evitar volver aquí con el botón "Atrás"
+        });
 
         database = FirebaseDatabase.getInstance().getReference("products");
 
@@ -52,7 +60,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         productAdapter = new ProductAdapter(filteredProductList, position -> {
             Product product = filteredProductList.get(position);
-            // Botón de eliminar
+            // Eliminar producto
             new AlertDialog.Builder(this)
                     .setTitle("Eliminar producto")
                     .setMessage("¿Deseas eliminar este producto?")
@@ -74,9 +82,33 @@ public class ProductListActivity extends AppCompatActivity {
         recyclerView.setAdapter(productAdapter);
         loadProductsFromFirebase();
         configureSearchFilters();
+        Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
+        buttonAddProduct.setOnClickListener(v -> {
+            String productName = ((EditText) findViewById(R.id.editTextProductName)).getText().toString().trim();
+            String productCategory = ((EditText) findViewById(R.id.editTextProductCategory)).getText().toString().trim();
 
-        findViewById(R.id.buttonAddProduct).setOnClickListener(v -> addProduct());
-        findViewById(R.id.buttonBackToMain).setOnClickListener(v -> finish());
+            if (productName.isEmpty() || productCategory.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Agregar producto a Firebase
+            String productId = database.push().getKey();
+            if (productId != null) {
+                Product newProduct = new Product(productId, productName, 0.0, productCategory, null);
+                database.child(productId).setValue(newProduct)
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(this, "Producto agregado exitosamente", Toast.LENGTH_SHORT).show();
+                            // Limpia los campos después de agregar
+                            ((EditText) findViewById(R.id.editTextProductName)).setText("");
+                            ((EditText) findViewById(R.id.editTextProductCategory)).setText("");
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(this, "Error al agregar el producto", Toast.LENGTH_SHORT).show());
+            } else {
+                Toast.makeText(this, "Error al generar ID para el producto", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void loadProductsFromFirebase() {
@@ -131,40 +163,31 @@ public class ProductListActivity extends AppCompatActivity {
         });
     }
 
-    private void addProduct() {
-        String productName = editTextProductName.getText().toString().trim();
-        String productCategory = editTextProductCategory.getText().toString().trim();
-        if (!productName.isEmpty() && !productCategory.isEmpty()) {
-            String id = database.push().getKey();
-            Product newProduct = new Product(id, productName, 100.0, productCategory);
-
-            assert id != null;
-            database.child(id).setValue(newProduct)
-                    .addOnSuccessListener(aVoid -> {
-                        productList.add(newProduct);
-                        filterProducts(editTextSearchName.getText().toString(), editTextSearchCategory.getText().toString());
-                        editTextProductName.setText("");
-                        editTextProductCategory.setText("");
-                        Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Error al agregar producto", Toast.LENGTH_SHORT).show());
-        } else {
-            Toast.makeText(this, "Por favor, ingresa un nombre y categoría válidos", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void showEditDialog(Product product) {
+        // Crear el constructor del diálogo
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Editar Producto");
 
-        View view = getLayoutInflater().inflate(R.layout.dialog_edit_product, null);
+        // Inflar el diseño del cuadro de diálogo
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.dialog_edit_product, null);
+
+        // Verificar que las vistas existan
         EditText editName = view.findViewById(R.id.editTextEditName);
         EditText editCategory = view.findViewById(R.id.editTextEditCategory);
 
+        if (editName == null || editCategory == null) {
+            throw new IllegalStateException("Las vistas no se encontraron en dialog_edit_product.xml");
+        }
+
+        // Configurar los campos con los datos actuales
         editName.setText(product.getName());
         editCategory.setText(product.getCategory());
 
+        // Configurar la vista inflada en el diálogo
         builder.setView(view);
+
+        // Botón Guardar
         builder.setPositiveButton("Guardar", (dialog, which) -> {
             String newName = editName.getText().toString().trim();
             String newCategory = editCategory.getText().toString().trim();
@@ -173,6 +196,7 @@ public class ProductListActivity extends AppCompatActivity {
                 product.setName(newName);
                 product.setCategory(newCategory);
 
+                // Actualizar en Firebase
                 database.child(product.getId()).setValue(product)
                         .addOnSuccessListener(aVoid -> Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show())
                         .addOnFailureListener(e -> Toast.makeText(this, "Error al actualizar producto", Toast.LENGTH_SHORT).show());
@@ -181,8 +205,11 @@ public class ProductListActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Cancelar", null);
-        builder.show();
+        // Botón Cancelar
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+
+        // Mostrar el diálogo
+        builder.create().show();
     }
 
     @SuppressLint("NotifyDataSetChanged")

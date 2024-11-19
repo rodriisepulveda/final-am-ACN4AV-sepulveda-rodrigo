@@ -41,13 +41,17 @@ dependencies {
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
-    // Firebase BoM (Bill of Materials)
+    // Material Components
+    implementation libs.material.v190
+
+    // Firebase BoM
     implementation platform(libs.firebase.bom)
 
-    // Firebase Analytics
-    implementation libs.firebase.analytics
+    implementation libs.glide
+    annotationProcessor libs.compiler
 
-    // Puedes agregar otras dependencias de Firebase aquí según necesites
-    // Ejemplo: Firebase Realtime Database
-    // implementation 'com.google.firebase:firebase-database'
+
+    // Firebase Analytics
+    implementation libs.google.firebase.analytics
 }
+

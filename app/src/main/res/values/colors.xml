@@ -1,8 +1,11 @@
 <resources>
     <color name="primaryColor">#FFBE60</color>
-    <color name="primaryVariant">#FFBE60</color>
+    <color name="primaryVariant">#D69E50</color>
     <color name="secondaryColor">#FF03DAC5</color>
     <color name="backgroundColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
+    <color name="buttonTextColor">#FFFFFF</color>
+    <color name="cardBackgroundColor">#F5F5F5</color>
+    <color name="dividerColor">#E0E0E0</color>
     <color name="white">#FFFFFF</color>
 </resources>
