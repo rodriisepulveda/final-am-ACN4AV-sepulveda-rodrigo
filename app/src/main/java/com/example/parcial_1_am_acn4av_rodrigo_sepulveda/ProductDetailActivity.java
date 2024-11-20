@@ -28,12 +28,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         TextView textViewPrice = findViewById(R.id.textViewDetailPrice);
         ImageView imageViewProduct = findViewById(R.id.imageViewDetailProduct);
 
-        // Mostrar los datos
+        // datos
         textViewName.setText(productName);
         textViewCategory.setText(String.format(getString(R.string.category_label), productCategory));
         textViewPrice.setText(String.format("$ %.2f", productPrice));
 
-        // Cargar la imagen
+        // imagen
         Glide.with(this)
                 .load(productImageUrl)
                 .placeholder(R.drawable.placeholder_image) // Imagen por defecto

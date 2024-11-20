@@ -14,18 +14,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Configurar el botón para mostrar la lista de productos
+        // botón para mostrar la lista de productos
         findViewById(R.id.buttonShowProducts).setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ProductListActivity.class);
             startActivity(intent);
         });
 
-        // Evento para el botón "Agregar Producto"
+        //  botón "Agregar Producto"
         findViewById(R.id.buttonAddProduct).setOnClickListener(v ->
                 Toast.makeText(MainActivity.this, getString(R.string.toast_functionality_development), Toast.LENGTH_SHORT).show()
         );
 
-        // Evento para el botón "Eliminar Producto"
+        // "Eliminar Producto"
         findViewById(R.id.buttonDeleteProduct).setOnClickListener(v ->
                 Toast.makeText(MainActivity.this, getString(R.string.toast_functionality_development), Toast.LENGTH_SHORT).show()
         );
