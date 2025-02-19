@@ -26,7 +26,8 @@
             android:hint="@string/hint_search_name"
             android:inputType="text"
             android:minHeight="40dp"
-            android:textColorHint="#546E7A" />
+            android:textColorHint="#546E7A"
+            tools:ignore="Autofill" />
 
         <!-- Campo para buscar por categoría -->
         <EditText
@@ -35,7 +36,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_search_category"
             android:inputType="text"
-            android:minHeight="40dp" />
+            android:minHeight="40dp"
+            tools:ignore="Autofill" />
     </LinearLayout>
 
     <!-- RecyclerView para mostrar los productos -->
@@ -70,7 +72,8 @@
             android:hint="@string/hint_product_name"
             android:inputType="text"
             android:minHeight="40dp"
-            android:textColorHint="#546E7A" />
+            android:textColorHint="#546E7A"
+            tools:ignore="Autofill" />
 
         <!-- Campo para ingresar la categoría del producto -->
         <EditText
@@ -87,6 +90,7 @@
     <!-- Contenedor para los botones -->
     <LinearLayout
         android:id="@+id/buttonContainer"
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -98,6 +102,7 @@
         <!-- Botón para agregar producto -->
         <Button
             android:id="@+id/buttonAddProduct"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -106,6 +111,7 @@
         <!-- Botón para volver -->
         <Button
             android:id="@+id/buttonBackToMain"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

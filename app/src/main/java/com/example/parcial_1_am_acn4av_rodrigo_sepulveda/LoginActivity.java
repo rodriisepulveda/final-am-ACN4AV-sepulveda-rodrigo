@@ -1,0 +1,83 @@
+package com.example.parcial_1_am_acn4av_rodrigo_sepulveda;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import java.util.Objects;
+
+public class LoginActivity extends AppCompatActivity {
+
+    private EditText editTextEmail, editTextPassword;
+    private FirebaseAuth mAuth;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        // Inicializar Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Referencias UI
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+        Button buttonRegister = findViewById(R.id.buttonRegister);
+
+        // Botón de Iniciar Sesión
+        buttonLogin.setOnClickListener(view -> loginUser());
+
+        // Botón de Registro (redirige a RegisterActivity)
+        buttonRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && currentUser.isEmailVerified()) {
+            // Si el usuario ya está autenticado y verificó su email, lo redirige a MainActivity
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
+    private void loginUser() {
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            showToast("Por favor, completa todos los campos");
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null && user.isEmailVerified()) {
+                            showToast("Inicio de sesión exitoso");
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            showToast("Verifica tu correo antes de iniciar sesión");
+                        }
+                    } else {
+                        showToast("Error en el inicio de sesión: " + Objects.requireNonNull(task.getException()).getMessage());
+                    }
+                });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}

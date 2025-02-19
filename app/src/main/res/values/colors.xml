@@ -1,11 +1,22 @@
 <resources>
+    <!-- Colores Principales -->
     <color name="primaryColor">#FFBE60</color>
     <color name="primaryVariant">#D69E50</color>
-    <color name="secondaryColor">#FF03DAC5</color>
+    <color name="secondaryColor">#03DAC5</color> <!-- Se corrigió el color -->
+
+    <!-- Colores de Fondo y Texto -->
     <color name="backgroundColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
     <color name="buttonTextColor">#FFFFFF</color>
+
+    <!-- Colores Adicionales -->
     <color name="cardBackgroundColor">#F5F5F5</color>
     <color name="dividerColor">#E0E0E0</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Nuevos Colores -->
+    <color name="errorColor">#D32F2F</color> <!-- Rojo para errores o alertas -->
+    <color name="successColor">#388E3C</color> <!-- Verde para acciones exitosas -->
+    <color name="neutralColor">#607D8B</color> <!-- Gris azulado para información -->
+    <color name="accentColor">#FFC107</color> <!-- Amarillo para destacar elementos -->
 </resources>

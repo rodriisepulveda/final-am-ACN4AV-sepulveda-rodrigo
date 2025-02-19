@@ -10,11 +10,9 @@ android {
     defaultConfig {
         applicationId "com.example.parcial_1_am_acn4av_rodrigo_sepulveda"
         minSdk 24
-        //noinspection OldTargetApi
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,6 +22,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -47,11 +46,16 @@ dependencies {
     // Firebase BoM
     implementation platform(libs.firebase.bom)
 
+    // Firebase Authentication
+    implementation libs.firebase.auth
+
+    // Firebase Firestore
+    implementation libs.firebase.firestore
+
+
     implementation libs.glide
     annotationProcessor libs.compiler
-
 
     // Firebase Analytics
     implementation libs.google.firebase.analytics
 }
-
