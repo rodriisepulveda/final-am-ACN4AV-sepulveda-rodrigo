@@ -35,7 +35,6 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
-    implementation libs.firebase.database
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
@@ -43,19 +42,22 @@ dependencies {
     // Material Components
     implementation libs.material.v190
 
-    // Firebase BoM
+    // Firebase BoM (gestiona versiones automáticamente)
     implementation platform(libs.firebase.bom)
 
     // Firebase Authentication
-    implementation libs.firebase.auth
+    implementation 'com.google.firebase:firebase-auth'
 
     // Firebase Firestore
-    implementation libs.firebase.firestore
+    implementation 'com.google.firebase:firebase-firestore'
 
+    // Firebase Database (si se usa, de lo contrario se puede eliminar)
+    implementation libs.firebase.database
 
+    // Glide (para carga de imágenes)
     implementation libs.glide
     annotationProcessor libs.compiler
 
     // Firebase Analytics
-    implementation libs.google.firebase.analytics
+    implementation 'com.google.firebase:firebase-analytics'
 }

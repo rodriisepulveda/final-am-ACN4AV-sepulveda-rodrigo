@@ -88,6 +88,18 @@
             android:textSize="18sp"
             android:padding="12dp"/>
 
+        <Button
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/button_edit_profile"
+            android:backgroundTint="@color/accentColor"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"/>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

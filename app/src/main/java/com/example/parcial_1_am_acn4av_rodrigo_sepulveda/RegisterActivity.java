@@ -6,14 +6,10 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.auth.AuthResult;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -55,17 +51,19 @@ public class RegisterActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        if (validateInput(name, email, password)) {
-            mAuth.fetchSignInMethodsForEmail(email)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful() && task.getResult() != null &&
-                                !Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty()) {
-                            showToast("El correo ya está registrado. Inicia sesión.");
-                        } else {
-                            createUser(name, email, password);
-                        }
-                    });
-        }
+        if (!validateInput(name, email, password)) return;
+
+        // Verifica si el email ya está registrado
+        mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null &&
+                            !Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty()) {
+                        showToast("El correo ya está registrado. Inicia sesión.");
+                    } else {
+                        createUser(name, email, password);
+                    }
+                })
+                .addOnFailureListener(e -> showToast("Error al verificar email: " + e.getMessage()));
     }
 
     private boolean validateInput(String name, String email, String password) {
@@ -96,12 +94,13 @@ public class RegisterActivity extends AppCompatActivity {
                             saveUserToFirestore(user.getUid(), name, email);
                             user.sendEmailVerification()
                                     .addOnSuccessListener(aVoid -> showToast("Registro exitoso. Verifica tu email."))
-                                    .addOnFailureListener(e -> showToast("Error al enviar el correo de verificación: " + e.getMessage()));
+                                    .addOnFailureListener(e -> showToast("Error al enviar email de verificación: " + e.getMessage()));
                         }
                     } else {
                         showToast("Error en el registro: " + Objects.requireNonNull(task.getException()).getMessage());
                     }
-                });
+                })
+                .addOnFailureListener(e -> showToast("Error en Firebase Auth: " + e.getMessage()));
     }
 
     private void saveUserToFirestore(String userId, String name, String email) {
@@ -110,8 +109,8 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("email", email);
 
         db.collection("usuarios").document(userId).set(user)
-                .addOnSuccessListener(aVoid -> showToast("Usuario guardado en Firestore"))
-                .addOnFailureListener(e -> showToast("Error al guardar usuario: " + e.getMessage()));
+                .addOnSuccessListener(aVoid -> showToast("Usuario guardado en Firestore correctamente"))
+                .addOnFailureListener(e -> showToast("Error al guardar usuario en Firestore: " + e.getMessage()));
     }
 
     private void showToast(String message) {

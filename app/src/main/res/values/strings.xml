@@ -61,5 +61,10 @@
     <string name="hint_search_name">Buscar por nombre</string>
     <string name="hint_search_category">Buscar por categoría</string>
 
+    <!-- Editprofile -->
+    <string name="button_edit_profile">Editar Perfil</string>
+    <string name="button_save_profile">Guardar Cambios</string>
+    <string name="button_cancel">Cancelar</string>
+
 
 </resources>

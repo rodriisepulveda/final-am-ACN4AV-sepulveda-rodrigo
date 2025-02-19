@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewWelcome;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        user = mAuth.getCurrentUser();
 
         // Referencias UI
         textViewWelcome = findViewById(R.id.textViewWelcome);
@@ -32,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
         Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
         Button buttonDeleteProduct = findViewById(R.id.buttonDeleteProduct);
         Button buttonLogout = findViewById(R.id.buttonLogout);
+        Button buttonEditProfile = findViewById(R.id.buttonEditProfile);
 
-        // Cargar datos del usuario
-        FirebaseUser user = mAuth.getCurrentUser();
+        // Verificar si hay un usuario autenticado
         if (user != null) {
             loadUserData(user.getUid());
+        } else {
+            showToast("Usuario no autenticado");
+            redirectToLogin();
         }
 
         // Navegación a lista de productos
@@ -47,12 +53,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Funcionalidad en desarrollo
         buttonAddProduct.setOnClickListener(v ->
-                Toast.makeText(MainActivity.this, getString(R.string.toast_functionality_development), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.toast_functionality_development))
         );
 
         buttonDeleteProduct.setOnClickListener(v ->
-                Toast.makeText(MainActivity.this, getString(R.string.toast_functionality_development), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.toast_functionality_development))
         );
+
+        // Editar perfil
+        buttonEditProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            startActivity(intent);
+        });
 
         // Cerrar sesión
         buttonLogout.setOnClickListener(v -> logoutUser());
@@ -64,16 +76,31 @@ public class MainActivity extends AppCompatActivity {
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
                         String nombre = documentSnapshot.getString("nombre");
-                        textViewWelcome.setText("Bienvenido, " + (nombre != null ? nombre : "Usuario"));
+                        if (nombre != null && !nombre.isEmpty()) {
+                            textViewWelcome.setText("Bienvenido, " + nombre);
+                        } else {
+                            textViewWelcome.setText("Bienvenido, Usuario");
+                        }
+                    } else {
+                        showToast("No se encontraron datos del usuario en Firestore");
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Error al cargar datos", Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> showToast("Error al cargar datos: " + e.getMessage()));
     }
 
     private void logoutUser() {
         mAuth.signOut();
-        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        showToast("Sesión cerrada");
+        redirectToLogin();
+    }
+
+    private void redirectToLogin() {
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
+
