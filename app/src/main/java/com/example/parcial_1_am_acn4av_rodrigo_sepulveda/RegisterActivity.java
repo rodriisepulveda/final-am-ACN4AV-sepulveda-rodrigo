@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -58,27 +58,27 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null &&
                             !Objects.requireNonNull(task.getResult().getSignInMethods()).isEmpty()) {
-                        showToast("El correo ya está registrado. Inicia sesión.");
+                        showAlert("El correo ya está registrado. Inicia sesión.", SweetAlertDialog.WARNING_TYPE);
                     } else {
                         createUser(name, email, password);
                     }
                 })
-                .addOnFailureListener(e -> showToast("Error al verificar email: " + e.getMessage()));
+                .addOnFailureListener(e -> showAlert("Error al verificar email: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
     }
 
     private boolean validateInput(String name, String email, String password) {
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            showToast("Por favor, completa todos los campos");
+            showAlert("Por favor, completa todos los campos", SweetAlertDialog.WARNING_TYPE);
             return false;
         }
 
         if (name.length() < 3) {
-            showToast("El nombre debe tener al menos 3 caracteres");
+            showAlert("El nombre debe tener al menos 3 caracteres", SweetAlertDialog.WARNING_TYPE);
             return false;
         }
 
         if (password.length() < 6) {
-            showToast("La contraseña debe tener al menos 6 caracteres");
+            showAlert("La contraseña debe tener al menos 6 caracteres", SweetAlertDialog.WARNING_TYPE);
             return false;
         }
 
@@ -93,14 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
                         if (user != null) {
                             saveUserToFirestore(user.getUid(), name, email);
                             user.sendEmailVerification()
-                                    .addOnSuccessListener(aVoid -> showToast("Registro exitoso. Verifica tu email."))
-                                    .addOnFailureListener(e -> showToast("Error al enviar email de verificación: " + e.getMessage()));
+                                    .addOnSuccessListener(aVoid -> showAlert("Registro exitoso. Verifica tu email.", SweetAlertDialog.SUCCESS_TYPE))
+                                    .addOnFailureListener(e -> showAlert("Error al enviar email de verificación: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
                         }
                     } else {
-                        showToast("Error en el registro: " + Objects.requireNonNull(task.getException()).getMessage());
+                        showAlert("Error en el registro: " + Objects.requireNonNull(task.getException()).getMessage(), SweetAlertDialog.ERROR_TYPE);
                     }
                 })
-                .addOnFailureListener(e -> showToast("Error en Firebase Auth: " + e.getMessage()));
+                .addOnFailureListener(e -> showAlert("Error en Firebase Auth: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
     }
 
     private void saveUserToFirestore(String userId, String name, String email) {
@@ -109,11 +109,13 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("email", email);
 
         db.collection("usuarios").document(userId).set(user)
-                .addOnSuccessListener(aVoid -> showToast("Usuario guardado en Firestore correctamente"))
-                .addOnFailureListener(e -> showToast("Error al guardar usuario en Firestore: " + e.getMessage()));
+                .addOnSuccessListener(aVoid -> showAlert("Usuario guardado en Firestore correctamente", SweetAlertDialog.SUCCESS_TYPE))
+                .addOnFailureListener(e -> showAlert("Error al guardar usuario en Firestore: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void showAlert(String message, int type) {
+        new SweetAlertDialog(this, type)
+                .setTitleText(message)
+                .show();
     }
 }

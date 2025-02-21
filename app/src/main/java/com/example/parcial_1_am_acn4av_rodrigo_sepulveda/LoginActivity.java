@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            showToast("Por favor, completa todos los campos");
+            showAlert("Por favor, completa todos los campos", SweetAlertDialog.WARNING_TYPE);
             return;
         }
 
@@ -65,19 +65,22 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
-                            showToast("Inicio de sesión exitoso");
+                            showAlert("Inicio de sesión exitoso", SweetAlertDialog.SUCCESS_TYPE);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         } else {
-                            showToast("Verifica tu correo antes de iniciar sesión");
+                            showAlert("Verifica tu correo antes de iniciar sesión", SweetAlertDialog.WARNING_TYPE);
                         }
                     } else {
-                        showToast("Error en el inicio de sesión: " + Objects.requireNonNull(task.getException()).getMessage());
+                        showAlert("Error en el inicio de sesión: " + Objects.requireNonNull(task.getException()).getMessage(),
+                                SweetAlertDialog.ERROR_TYPE);
                     }
                 });
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void showAlert(String message, int type) {
+        new SweetAlertDialog(this, type)
+                .setTitleText(message)
+                .show();
     }
 }

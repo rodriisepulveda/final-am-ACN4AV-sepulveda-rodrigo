@@ -19,4 +19,11 @@
     <color name="successColor">#388E3C</color> <!-- Verde para acciones exitosas -->
     <color name="neutralColor">#607D8B</color> <!-- Gris azulado para información -->
     <color name="accentColor">#FFC107</color> <!-- Amarillo para destacar elementos -->
+
+    <!-- Colores adicionales para mejorar la UI -->
+    <color name="inputFieldBackground">#EEEEEE</color> <!-- Fondo de los EditText -->
+    <color name="inputFieldBorder">#BDBDBD</color> <!-- Borde de los EditText -->
+    <color name="buttonPrimary">#0288D1</color> <!-- Azul oscuro para botones principales -->
+    <color name="buttonSecondary">#009688</color> <!-- Verde para botones secundarios -->
+    <color name="buttonWarning">#FFA000</color> <!-- Amarillo fuerte para alertas -->
 </resources>

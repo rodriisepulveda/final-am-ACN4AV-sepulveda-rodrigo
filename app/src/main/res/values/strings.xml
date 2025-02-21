@@ -1,70 +1,66 @@
 <resources>
-    <!-- Acciones en Productos -->
-    <string name="delete_product">Eliminar Producto</string>
-    <string name="edit_product">Editar Producto</string>
-
-
     <!-- General -->
     <string name="app_name">parcial-1-am-acn4av-rodrigo-sepulveda</string>
     <string name="welcome_message">Bienvenido, Usuario</string>
     <string name="logo_description">Logo de la empresa</string>
     <string name="button_back">Volver</string>
 
-    <!-- Botones de MainActivity -->
+    <!-- Botones en la MainActivity -->
     <string name="button_show_products">Gestión de Productos</string>
-    <string name="button_add_product">Agregar Producto</string>
-    <string name="button_delete_product">Eliminar Producto</string>
+    <string name="button_edit_profile">Editar Perfil</string>
     <string name="button_logout">Cerrar Sesión</string>
 
-    <!-- Botones de Productos -->
+    <!-- Botones en Producto -->
+    <string name="button_add_product">Agregar Producto</string>
     <string name="button_edit_product">Editar Producto</string>
-    <string name="dialog_edit_product_save">Guardar</string>
-    <string name="dialog_edit_product_cancel">Cancelar</string>
-
-    <!-- Productos -->
-    <string name="edit_text_hint">Nombre del Producto</string>
-    <string name="hint_product_name">Nombre del Producto</string>
-    <string name="hint_product_category">Categoría</string>
-    <string name="hint_edit_product_name">Editar nombre del Producto</string>
-    <string name="hint_edit_product_category">Editar categoría</string>
-    <string name="category_label">Categoría: %1$s</string>
-    <string name="product_image">Imagen del producto</string>
+    <string name="button_delete_product">Eliminar Producto</string>
     <string name="button_back_to_list">Volver a la lista</string>
 
-    <!-- Notificaciones -->
-    <string name="toast_product_added">Producto agregado</string>
-    <string name="toast_product_add_error">Por favor, completa todos los campos</string>
-    <string name="toast_product_edited">Producto actualizado correctamente</string>
-    <string name="toast_product_edit_error">Error al actualizar producto</string>
-    <string name="toast_no_products_available">No hay productos disponibles</string>
-    <string name="toast_functionality_development">Funcionalidad en Desarrollo</string>
-
-    <!-- Registro -->
-    <string name="hint_name">Nombre completo</string>
-    <string name="button_back_to_login">Volver a Iniciar Sesión</string>
-    <string name="toast_email_already_registered">El correo ya está registrado. Inicia sesión.</string>
-    <string name="toast_name_too_short">El nombre debe tener al menos 3 caracteres</string>
-    <string name="toast_password_too_short">La contraseña debe tener al menos 6 caracteres</string>
-
-    <!-- Login y Registro -->
-
-    <string name="hint_email">Correo electrónico</string>
-    <string name="hint_password">Contraseña</string>
-    <string name="button_login">Iniciar Sesión</string>
-    <string name="button_register">Registrarse</string>
-    <string name="toast_login_success">Inicio de sesión exitoso</string>
-    <string name="toast_login_error">Error en el inicio de sesión</string>
-    <string name="toast_register_success">Registro exitoso. Verifica tu email.</string>
-    <string name="toast_register_error">Error en el registro</string>
+    <!-- Editar Producto -->
+    <string name="edit_product">Editar Producto</string>
+    <string name="hint_edit_product_name">Nombre del Producto</string>
+    <string name="hint_edit_product_price">Precio del Producto</string>
+    <string name="hint_edit_product_category">Seleccionar Categoría</string>
+    <string name="dialog_edit_product_save">Guardar Cambios</string>
+    <string name="button_cancel">Cancelar</string>
+    <string name="delete_product">Eliminar Producto</string>
 
     <!-- Búsqueda de Productos -->
     <string name="hint_search_name">Buscar por nombre</string>
     <string name="hint_search_category">Buscar por categoría</string>
 
-    <!-- Editprofile -->
-    <string name="button_edit_profile">Editar Perfil</string>
+    <!-- Producto Detalles -->
+    <string name="product_image">Imagen del Producto</string>
+
+    <!-- Notificaciones de Productos -->
+    <string name="toast_product_added">Producto agregado exitosamente</string>
+    <string name="toast_product_add_error">Por favor, completa todos los campos</string>
+    <string name="toast_product_edited">Producto actualizado correctamente</string>
+    <string name="toast_product_edit_error">Error al actualizar el producto</string>
+    <string name="toast_no_products_available">No hay productos disponibles</string>
+
+    <!-- Registro y Login -->
+    <string name="hint_name">Nombre completo</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="button_login">Iniciar Sesión</string>
+    <string name="button_register">Registrarse</string>
+    <string name="button_back_to_login">Volver a Iniciar Sesión</string>
+    <string name="toast_login_success">Inicio de sesión exitoso</string>
+    <string name="toast_login_error">Error en el inicio de sesión</string>
+    <string name="toast_register_success">Registro exitoso. Verifica tu email.</string>
+    <string name="toast_register_error">Error en el registro</string>
+    <string name="toast_functionality_development">Esta funcionalidad está en desarrollo</string>
+
+    <!-- Editar Perfil -->
+    <string name="edit_profile">Editar Perfil</string>
     <string name="button_save_profile">Guardar Cambios</string>
-    <string name="button_cancel">Cancelar</string>
+    <string name="button_cancel_edit">Cancelar</string>
+    <string name="toast_error_loading_data">Error al cargar datos</string>
+    <string name="toast_fill_all_fields">Por favor, completa todos los campos</string>
+    <string name="toast_profile_updated">Perfil actualizado correctamente</string>
+    <string name="toast_error_updating_profile">Error al actualizar perfil</string>
 
-
+    <!-- Categorías -->
+    <string name="category_label">Categoría: %1$s</string>
 </resources>

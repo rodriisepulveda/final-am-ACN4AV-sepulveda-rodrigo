@@ -5,19 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textViewWelcome;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         // Referencias UI
         textViewWelcome = findViewById(R.id.textViewWelcome);
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         if (user != null) {
             loadUserData(user.getUid());
         } else {
-            showToast("Usuario no autenticado");
+            showAlert("Usuario no autenticado", SweetAlertDialog.ERROR_TYPE);
             redirectToLogin();
         }
 
@@ -53,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Funcionalidad en desarrollo
         buttonAddProduct.setOnClickListener(v ->
-                showToast(getString(R.string.toast_functionality_development))
+                showAlert(getString(R.string.toast_functionality_development), SweetAlertDialog.ERROR_TYPE)
         );
 
         buttonDeleteProduct.setOnClickListener(v ->
-                showToast(getString(R.string.toast_functionality_development))
+                showAlert(getString(R.string.toast_functionality_development), SweetAlertDialog.ERROR_TYPE)
         );
 
         // Editar perfil
@@ -66,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Cerrar sesión
-        buttonLogout.setOnClickListener(v -> logoutUser());
+        // Cerrar sesión con confirmación
+        buttonLogout.setOnClickListener(v -> confirmLogout());
     }
 
     @SuppressLint("SetTextI18n")
@@ -82,15 +80,28 @@ public class MainActivity extends AppCompatActivity {
                             textViewWelcome.setText("Bienvenido, Usuario");
                         }
                     } else {
-                        showToast("No se encontraron datos del usuario en Firestore");
+                        showAlert("No se encontraron datos del usuario en Firestore", SweetAlertDialog.WARNING_TYPE);
                     }
                 })
-                .addOnFailureListener(e -> showToast("Error al cargar datos: " + e.getMessage()));
+                .addOnFailureListener(e -> showAlert("Error al cargar datos: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
+    }
+
+    private void confirmLogout() {
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("¿Cerrar sesión?")
+                .setContentText("Tendrás que volver a iniciar sesión")
+                .setConfirmText("Sí, salir")
+                .setCancelText("Cancelar")
+                .setConfirmClickListener(sDialog -> {
+                    logoutUser();
+                    sDialog.dismissWithAnimation();
+                })
+                .show();
     }
 
     private void logoutUser() {
         mAuth.signOut();
-        showToast("Sesión cerrada");
+        showAlert("Sesión cerrada", SweetAlertDialog.SUCCESS_TYPE);
         redirectToLogin();
     }
 
@@ -99,8 +110,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void showAlert(String message, int type) {
+        new SweetAlertDialog(this, type)
+                .setTitleText(message)
+                .show();
     }
 }
 

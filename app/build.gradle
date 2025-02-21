@@ -60,4 +60,11 @@ dependencies {
 
     // Firebase Analytics
     implementation 'com.google.firebase:firebase-analytics'
+
+    // sweetAlert
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+    //cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 }

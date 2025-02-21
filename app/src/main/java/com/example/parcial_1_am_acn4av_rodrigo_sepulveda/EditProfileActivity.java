@@ -11,19 +11,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
-
 public class EditProfileActivity extends AppCompatActivity {
 
     private EditText editTextName, editTextEmail;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private FirebaseUser user;
+    private Button buttonSaveProfile, buttonCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivity_edit_profile);
+        setContentView(R.layout.activity_edit_profile);
 
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -33,8 +32,8 @@ public class EditProfileActivity extends AppCompatActivity {
         // Referencias UI
         editTextName = findViewById(R.id.editTextName);
         editTextEmail = findViewById(R.id.editTextEmail);
-        Button buttonSaveProfile = findViewById(R.id.buttonSaveProfile);
-        Button buttonCancel = findViewById(R.id.buttonCancel);
+        buttonSaveProfile = findViewById(R.id.buttonSaveProfile);
+        buttonCancel = findViewById(R.id.buttonCancel);
 
         // Cargar datos actuales del usuario
         loadUserData();
@@ -55,7 +54,7 @@ public class EditProfileActivity extends AppCompatActivity {
                             editTextEmail.setText(documentSnapshot.getString("email"));
                         }
                     })
-                    .addOnFailureListener(e -> showToast("Error al cargar datos"));
+                    .addOnFailureListener(e -> showToast(getString(R.string.toast_error_loading_data)));
         }
     }
 
@@ -64,17 +63,17 @@ public class EditProfileActivity extends AppCompatActivity {
         String newEmail = editTextEmail.getText().toString().trim();
 
         if (TextUtils.isEmpty(newName) || TextUtils.isEmpty(newEmail)) {
-            showToast("Por favor, completa todos los campos");
+            showToast(getString(R.string.toast_fill_all_fields));
             return;
         }
 
         DocumentReference userRef = db.collection("usuarios").document(user.getUid());
         userRef.update("nombre", newName, "email", newEmail)
                 .addOnSuccessListener(aVoid -> {
-                    showToast("Perfil actualizado correctamente");
+                    showToast(getString(R.string.toast_profile_updated));
                     finish();
                 })
-                .addOnFailureListener(e -> showToast("Error al actualizar perfil"));
+                .addOnFailureListener(e -> showToast(getString(R.string.toast_error_updating_profile)));
     }
 
     private void showToast(String message) {

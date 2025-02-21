@@ -24,10 +24,19 @@
             </intent-filter>
         </activity>
 
+        <!-- Actividad para agregar productos -->
+        <activity
+            android:name=".AddProductActivity"
+            android:exported="true"/>
+
+
         <!-- Actividad de Registro -->
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
+
+        <activity android:name=".EditProductActivity" android:exported="true" />
+
 
         <!-- Actividad principal después del Login -->
         <activity
