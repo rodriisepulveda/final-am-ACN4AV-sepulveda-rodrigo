@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         textViewWelcome = findViewById(R.id.textViewWelcome);
         Button buttonShowProducts = findViewById(R.id.buttonShowProducts);
         Button buttonAddProduct = findViewById(R.id.buttonAddProduct);
-        Button buttonDeleteProduct = findViewById(R.id.buttonDeleteProduct);
+        @SuppressLint({"WrongViewCast", "MissingInflatedId", "LocalSuppress"}) Button buttonDeleteProduct = findViewById(R.id.buttonDeleteProduct);
         Button buttonLogout = findViewById(R.id.buttonLogout);
         Button buttonEditProfile = findViewById(R.id.buttonEditProfile);
 
@@ -49,14 +49,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Funcionalidad en desarrollo
-        buttonAddProduct.setOnClickListener(v ->
-                showAlert(getString(R.string.toast_functionality_development), SweetAlertDialog.ERROR_TYPE)
-        );
+        buttonAddProduct.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddProductActivity.class);
+            startActivity(intent);
+        });
 
-        buttonDeleteProduct.setOnClickListener(v ->
-                showAlert(getString(R.string.toast_functionality_development), SweetAlertDialog.ERROR_TYPE)
-        );
 
         // Editar perfil
         buttonEditProfile.setOnClickListener(v -> {

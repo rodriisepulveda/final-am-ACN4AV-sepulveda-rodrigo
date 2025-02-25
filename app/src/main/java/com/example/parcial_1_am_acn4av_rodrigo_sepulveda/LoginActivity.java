@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         Button buttonLogin = findViewById(R.id.buttonLogin);
         Button buttonRegister = findViewById(R.id.buttonRegister);
+        Button buttonForgotPassword = findViewById(R.id.buttonForgotPassword); // Nuevo botón
 
         // Botón de Iniciar Sesión
         buttonLogin.setOnClickListener(view -> loginUser());
@@ -38,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
+
+        // Botón de Recuperar Contraseña
+        buttonForgotPassword.setOnClickListener(v -> resetPassword());
     }
 
     @Override
@@ -78,9 +82,38 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    private void resetPassword() {
+        EditText inputEmail = new EditText(this);
+        inputEmail.setHint("Ingresa tu correo");
+
+        new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE)
+                .setTitleText("Recuperar contraseña")
+                .setCustomView(inputEmail)
+                .setConfirmText("Enviar")
+                .setCancelText("Cancelar")
+                .setConfirmClickListener(sDialog -> {
+                    String email = inputEmail.getText().toString().trim();
+
+                    if (TextUtils.isEmpty(email)) {
+                        showAlert("Por favor, ingresa tu correo electrónico.", SweetAlertDialog.WARNING_TYPE);
+                        return;
+                    }
+
+                    mAuth.sendPasswordResetEmail(email)
+                            .addOnSuccessListener(aVoid -> {
+                                showAlert("Se ha enviado un correo para restablecer tu contraseña.", SweetAlertDialog.SUCCESS_TYPE);
+                                sDialog.dismissWithAnimation();
+                            })
+                            .addOnFailureListener(e -> showAlert("Error: " + e.getMessage(), SweetAlertDialog.ERROR_TYPE));
+                })
+                .setCancelClickListener(SweetAlertDialog::dismissWithAnimation)
+                .show();
+    }
+
     private void showAlert(String message, int type) {
         new SweetAlertDialog(this, type)
                 .setTitleText(message)
+                .setConfirmText("OK")
                 .show();
     }
 }

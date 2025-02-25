@@ -46,6 +46,7 @@
     <string name="button_login">Iniciar Sesión</string>
     <string name="button_register">Registrarse</string>
     <string name="button_back_to_login">Volver a Iniciar Sesión</string>
+    <string name="button_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="toast_login_success">Inicio de sesión exitoso</string>
     <string name="toast_login_error">Error en el inicio de sesión</string>
     <string name="toast_register_success">Registro exitoso. Verifica tu email.</string>

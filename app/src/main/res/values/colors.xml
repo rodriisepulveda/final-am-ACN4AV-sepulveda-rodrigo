@@ -1,29 +1,38 @@
 <resources>
     <!-- Colores Principales -->
-    <color name="primaryColor">#FFBE60</color>
-    <color name="primaryVariant">#D69E50</color>
-    <color name="secondaryColor">#03DAC5</color> <!-- Se corrigió el color -->
+    <color name="primaryColor">#FFBE60</color> <!-- Naranja principal -->
+    <color name="primaryVariant">#D78A1C</color> <!-- Naranja oscuro, usado en variantes -->
+    <color name="secondaryColor">#03DAC5</color> <!-- Turquesa -->
 
     <!-- Colores de Fondo y Texto -->
-    <color name="backgroundColor">#FFFFFF</color>
-    <color name="textColor">#000000</color>
-    <color name="buttonTextColor">#FFFFFF</color>
+    <color name="backgroundColor">#FFFFFF</color> <!-- Fondo general -->
+    <color name="textColor">#000000</color> <!-- Texto principal -->
+    <color name="buttonTextColor">#FFFFFF</color> <!-- Texto en botones -->
 
     <!-- Colores Adicionales -->
-    <color name="cardBackgroundColor">#F5F5F5</color>
-    <color name="dividerColor">#E0E0E0</color>
-    <color name="white">#FFFFFF</color>
+    <color name="cardBackgroundColor">#F5F5F5</color> <!-- Fondo de tarjetas -->
+    <color name="dividerColor">#E0E0E0</color> <!-- Separadores -->
+    <color name="white">#FFFFFF</color> <!-- Blanco universal -->
 
-    <!-- Nuevos Colores -->
+    <!-- Estados y Alertas -->
     <color name="errorColor">#D32F2F</color> <!-- Rojo para errores o alertas -->
     <color name="successColor">#388E3C</color> <!-- Verde para acciones exitosas -->
     <color name="neutralColor">#607D8B</color> <!-- Gris azulado para información -->
     <color name="accentColor">#FFC107</color> <!-- Amarillo para destacar elementos -->
 
-    <!-- Colores adicionales para mejorar la UI -->
+    <!-- Colores de Inputs -->
     <color name="inputFieldBackground">#EEEEEE</color> <!-- Fondo de los EditText -->
     <color name="inputFieldBorder">#BDBDBD</color> <!-- Borde de los EditText -->
+
+    <!-- Colores de Botones -->
     <color name="buttonPrimary">#0288D1</color> <!-- Azul oscuro para botones principales -->
     <color name="buttonSecondary">#009688</color> <!-- Verde para botones secundarios -->
     <color name="buttonWarning">#FFA000</color> <!-- Amarillo fuerte para alertas -->
+    <color name="buttonError">#D32F2F</color> <!-- Rojo para botones de error -->
+    <color name="buttonSuccess">#4CAF50</color> <!-- Verde para acciones confirmadas -->
+
+    <!-- Colores Adicionales para Mejorar la UI -->
+    <color name="backgroundVariant">#FAFAFA</color> <!-- Fondo secundario suave -->
+    <color name="textSecondary">#757575</color> <!-- Texto secundario gris oscuro -->
+    <color name="shadowColor">#B0BEC5</color> <!-- Sombra ligera -->
 </resources>

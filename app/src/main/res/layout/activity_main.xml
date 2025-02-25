@@ -38,67 +38,56 @@
         android:id="@+id/linearLayoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginTop="30dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/textViewWelcome"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewWelcome">
 
         <Button
             android:id="@+id/buttonShowProducts"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="@string/button_show_products"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/primaryColor"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
+            android:text="@string/button_show_products"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonAddProduct"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="@string/button_add_product"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/secondaryColor"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-
-        <Button
-            android:id="@+id/buttonDeleteProduct"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/button_delete_product"
-            android:backgroundTint="@color/primaryVariant"
+            android:text="@string/button_add_product"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="@string/button_logout"
-            android:backgroundTint="@color/errorColor"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:padding="12dp"/>
 
         <Button
             android:id="@+id/buttonEditProfile"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="@string/button_edit_profile"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="@color/accentColor"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
+            android:text="@string/button_edit_profile"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/errorColor"
+            android:padding="12dp"
+            android:text="@string/button_logout"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
